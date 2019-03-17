@@ -107,6 +107,8 @@ If I had a possibility to change, or improve something I'd rather:
    * Perhaps there was a better way to optimize using RestTemplate class while fetching information from external endpoint.
    * This project surely is missing frontend implementation - I think that it should be done earlier, because it's a matter of lack of time. If I had to implement it, I'd rather try to use maven plugin called `frontend-maven-plugin` from groupId `com.github.eirslett`.
    * There is surely a place for tool that creates some cool documentation like Swagger - if I had a bigger experience with it I'd definitely used it.
+   * Preorder controller tests implementation are kinda buggy with listing specified preorder - perhaps there is an easy solution for it, but it happens to be recently and I decided to keep them as a tests that passes.
+   * If I had any earlier experience with Kubernetes I would definitely give it try, but well - you can't always get what you want.
 
 ##Conclusion
 I really enjoyed solving this task. I would be very grateful for any constructive crituqes from you. 
