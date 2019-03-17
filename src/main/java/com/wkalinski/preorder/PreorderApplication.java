@@ -18,7 +18,7 @@ import org.springframework.amqp.core.Queue;
 @EnableAutoConfiguration
 public class PreorderApplication {
 
-	public static final String topicExchangeName = "spring-boot-exchange";
+	public static final String TOPIC_EXCHANGE_NAME = "com.wkalinski.preorder";
 
 	private static final String queueName = "spring-boot";
 
@@ -29,12 +29,12 @@ public class PreorderApplication {
 
 	@Bean
 	TopicExchange exchange() {
-		return new TopicExchange(topicExchangeName);
+		return new TopicExchange(TOPIC_EXCHANGE_NAME);
 	}
 
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+		return BindingBuilder.bind(queue).to(exchange).with("com.wkalinski.preorder");
 	}
 
 	@Bean

@@ -61,7 +61,7 @@ public class PreorderServiceTest {
                 .preorderId(11)
                 .name("Bob")
                 .build();
-       preorders = new ArrayList<Preorder>();
+       preorders = new ArrayList<>();
        preorders.add(preorder);
        preorders.add(preorder2);
        preorders.add(preorder3);

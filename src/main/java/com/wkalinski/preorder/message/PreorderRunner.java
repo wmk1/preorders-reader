@@ -23,7 +23,7 @@ public class PreorderRunner implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     System.out.println("Sending message to Rabbit MQ");
-    rabbitTemplate.convertAndSend(PreorderApplication.topicExchangeName,
+    rabbitTemplate.convertAndSend(PreorderApplication.TOPIC_EXCHANGE_NAME,
             "com.wkalinski.preorder",
             "Hello from RabbitMQ!");
     receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);

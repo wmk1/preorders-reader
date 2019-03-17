@@ -105,29 +105,31 @@ public class PreorderControllerTest {
 
   @Test
   public void givenControllerWhenAskingForPreordersThenSuccess() throws Exception {
-    // given
+    //given
+    int pageSize = 1;
+    int pageLimitNumber = 4;
+    String sortingParam = "regular_price";
 
-    // when
 
     when(preorderService.getPreordersList(1, 4, "")).thenReturn(preorders);
     // then
     mockMvc
-        .perform(get("/preorders/1/4/").accept(MediaTypes.HAL_JSON_VALUE))
+        .perform(get("/preorders/{pageSize}/{pageLimitNumber}/{sortingParam}", pageSize, pageLimitNumber, sortingParam).accept(MediaTypes.HAL_JSON_VALUE))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE + ";charset=UTF-8"));
   }
 
   @Test
-  public void givenControllerWhenAskingForPreordersWithoutParam() throws Exception {
+  public void givenControllerWhenAskingForPreordersWithProperSortingParam() throws Exception {
     // given
     int pageSize = 1;
-    int pageLimitNumber = 1;
-    String sortingParam = "";
+    int pageLimitNumber = 4;
+    String sortingParam = "regular_price";
 
     // when then
     mockMvc
-        .perform(get("/preorders/1/2/").accept(MediaTypes.HAL_JSON_VALUE))
+        .perform(get("/preorders/{pageSize}/{pageLimitNumber}/{sortingParam}", pageSize, pageLimitNumber, sortingParam).accept(MediaTypes.HAL_JSON_VALUE))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE + ";charset=UTF-8"));
@@ -136,11 +138,11 @@ public class PreorderControllerTest {
   @Test
   public void givenControllerWhenAskingForDetailedExistingPreorderThenSuccess() throws Exception {
     // given
-    int providerId = 2314;
+    int preorderId = 51503;
 
     // when then
     mockMvc
-        .perform(get("/preorders/preorder/" + providerId).accept(MediaTypes.HAL_JSON_VALUE))
+        .perform(get("/preorders/preorder/51503").accept(MediaTypes.HAL_JSON_VALUE))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE + ";charset=UTF-8"));
@@ -149,10 +151,10 @@ public class PreorderControllerTest {
   @Test
   public void givenControllerWhenAskingForNonExistingPreorderThen404() throws Exception {
     // given
-    int nonExistingProviderId = 87621379;
+    int preorderId = 87621379;
 
     mockMvc
-        .perform(get("/preorders/preorder/" + nonExistingProviderId).accept(MediaTypes.HAL_JSON_VALUE))
+        .perform(get("/preorders/preorder/{preorderId}", preorderId).accept(MediaTypes.HAL_JSON_VALUE))
         .andDo(print())
         .andExpect(status().isNoContent());
   }
