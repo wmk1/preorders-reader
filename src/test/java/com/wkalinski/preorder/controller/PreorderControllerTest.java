@@ -144,8 +144,7 @@ public class PreorderControllerTest {
     mockMvc
         .perform(get("/preorders/preorder/51503").accept(MediaTypes.HAL_JSON_VALUE))
         .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE + ";charset=UTF-8"));
+        .andExpect(status().isNoContent());
   }
 
   @Test
