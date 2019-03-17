@@ -1,12 +1,5 @@
 version: '3'
 services:
-  core:
-    build: ""
-    ports:
-      - 8080:8080
-    depends_on:
-      - rabbitmq
-    network_mode: "host"
 
   rabbitmq:
     image: rabbitmq:3.5.3-management

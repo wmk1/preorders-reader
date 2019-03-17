@@ -40,19 +40,23 @@ Solution is mostly oriented for Linux-related users.
     
     /cd/to/your/path
 
+
+
+2. This project uses RabbitMQ, therefore we need to start it first. In order to do it, after successful build, run
+
+
+    docker-compose up
+
+
+
+Docker contains RabbitMQ and core itself.
+
 2. When you are in the main directory of project, write:
 
     
     mvn clean install
 
-3. This project uses RabbitMQ, therefore we need to start it first. In order to do it, after successful build, run
-
-
-    docker-compose up
-
-Docker contains RabbitMQ and core itself.
-
-4. After successful running docker containers, run in your terminal
+4. After successful running docker containers and installing maven targer, run in your terminal
 
 
     mvn spring-boot:run
