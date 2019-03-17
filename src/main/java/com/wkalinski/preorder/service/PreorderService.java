@@ -23,11 +23,19 @@ public class PreorderService {
     String order = verifySortingParam(sortingParam);
     preordersList = new ArrayList<>();
     RestTemplate restTemplate = new RestTemplate();
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromHttpUrl(PREORDERS_API_URL)
-            .queryParam("page", page)
-            .queryParam("limit", size)
-            .queryParam("order", order);
+    UriComponentsBuilder builder;
+    if (order.equals("name") || order.equals("regular_price")) {
+      builder =
+          UriComponentsBuilder.fromHttpUrl(PREORDERS_API_URL)
+              .queryParam("page", page)
+              .queryParam("limit", size)
+              .queryParam("order", order);
+       } else {
+      builder =
+          UriComponentsBuilder.fromHttpUrl(PREORDERS_API_URL)
+              .queryParam("page", page)
+              .queryParam("limit", size);
+      }
     ResponseEntity<List<Preorder>> response =
         restTemplate.exchange(
             builder.toUriString(),
@@ -37,8 +45,6 @@ public class PreorderService {
     preordersList = response.getBody();
     return preordersList;
   }
-
-  public List<Preorder> getPreordersListWithoutOrder(int page, int size) {}
 
   public Preorder showDetailedPreorder(int preorderId) {
     if (preordersList == null) {
@@ -56,8 +62,8 @@ public class PreorderService {
   }
 
   private String verifySortingParam(String sortingParam) {
-    if (!(sortingParam.equals("name")) && !(sortingParam.equals("regularPrice"))) return "";
-    if (sortingParam.equals("regularPrice")) return "regular_price";
-    return "";
+    if (!(sortingParam.equals("name")) && !(sortingParam.equals("regular_price"))) return "dupa";
+    return sortingParam;
   }
+
 }
