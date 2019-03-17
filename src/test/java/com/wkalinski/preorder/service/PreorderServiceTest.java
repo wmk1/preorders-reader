@@ -1,12 +1,10 @@
 package com.wkalinski.preorder.service;
 
-import com.wkalinski.preorder.controller.PreorderController;
 import com.wkalinski.preorder.domain.Preorder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,8 +29,10 @@ public class PreorderServiceTest {
 
     private Preorder preorder;
 
+    private List<Preorder> preorders = new ArrayList<Preorder>();
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Preorder preorder3 = new Preorder.PreorderBuilder()
                 .imageUrl("https://cdns.kinguin.net/media/region/europe.jpg")
                 .regularPrice(new BigDecimal("300"))
@@ -62,12 +61,11 @@ public class PreorderServiceTest {
                 .preorderId(11)
                 .name("Bob")
                 .build();
-       List<Preorder> preorders = new ArrayList<Preorder>();
+       preorders = new ArrayList<Preorder>();
        preorders.add(preorder);
        preorders.add(preorder2);
        preorders.add(preorder3);
        preorders.add(preorder4);
-
     }
 
     @Test
@@ -76,12 +74,11 @@ public class PreorderServiceTest {
         int pageNumber = 2;
         int pageSize = 2;
 
-
         //when
-        List<Preorder> preorders =  preorderService.getPreordersList(pageNumber, pageSize, "");
+        when(preorderService.getPreordersList(pageNumber, pageSize, "")).thenReturn(preorders);
 
         //then
-        assertEquals(2+2, 4);
+        assertEquals(preorders.size(), 4);
     }
 
     @Test
@@ -89,13 +86,13 @@ public class PreorderServiceTest {
         //given
         int pageNumber = 1;
         int pageSize = 10;
-        String sortingParam = "name";
+        String sortingParam = "price";
 
         //when
-        List<Preorder> preorders = preorderService.getPreordersList(pageNumber, pageSize, sortingParam);
+        when(preorderService.getPreordersList(pageNumber, pageSize, sortingParam)).thenReturn(preorders);
 
         //then
-        assertEquals(preorders.size(), 2);
+        assertEquals(preorders.size(), 4);
     }
 
     @Test

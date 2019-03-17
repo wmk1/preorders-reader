@@ -22,7 +22,7 @@ public class PreorderRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    System.out.println("Sending message...");
+    System.out.println("Sending message to Rabbit MQ");
     rabbitTemplate.convertAndSend(PreorderApplication.topicExchangeName,
             "com.wkalinski.preorder",
             "Hello from RabbitMQ!");
